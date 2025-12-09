@@ -1,5 +1,28 @@
-*.md
-*.txt
+# Database files (will be created on first run)
 taxi.db
-CODE_STYLE_GUIDE.md
 
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.log
