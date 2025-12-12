@@ -94,16 +94,6 @@ class LoginPage(CTk.CTkFrame):
         )
         self.password.pack(pady=(0, 20))
         
-        anOptionsFrame = CTk.CTkFrame(aFormContainer, fg_color="transparent")
-        anOptionsFrame.pack(fill="x", pady=(0, 25))
-        
-        CTk.CTkCheckBox(
-            anOptionsFrame,
-            text="Remember me",
-            font=CTk.CTkFont(size=11),
-            text_color="#666666"
-        ).pack(side="left")
-        
         CTk.CTkButton(
             aFormContainer,
             text="Login",

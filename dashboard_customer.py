@@ -152,6 +152,25 @@ class CustomerDashboardMixin:
         )
         self.time_entry.pack(fill="both", expand=True)
 
+        def set_now():
+            aNow = datetime.now()
+            self.date_entry.delete(0, "end")
+            self.date_entry.insert(0, aNow.strftime("%Y-%m-%d"))
+            self.time_entry.delete(0, "end")
+            self.time_entry.insert(0, aNow.strftime("%H:%M"))
+
+        CTk.CTkButton(
+            aFormContent,
+            text="Use Current Date & Time",
+            font=CTk.CTkFont(family="Segoe UI", size=12, weight="bold"),
+            fg_color="#4FC3F7",
+            text_color="#0A192F",
+            hover_color="#29B6F6",
+            height=44,
+            corner_radius=8,
+            command=set_now,
+        ).pack(fill="x", pady=(10, 10))
+
         CTk.CTkButton(
             aFormContent,
             text="Book Your Taxi",
