@@ -209,7 +209,7 @@ class CustomerDashboardMixin:
 
         try:
             aBookingDateTime = datetime.strptime(f"{aDate} {aTime}", "%Y-%m-%d %H:%M")
-            if aBookingDateTime < datetime.now():
+            if not(aBookingDateTime >= datetime.now()):
                 messagebox.showerror("Error", "Booking date and time must be in the future.")
                 return
         except ValueError:
@@ -479,6 +479,17 @@ class CustomerDashboardMixin:
                 aCur.execute("SELECT driver_id FROM bookings WHERE id = ?", (aBookingId,))
                 aResult = aCur.fetchone()
                 aDriverId = aResult[0] if aResult else None
+
+                try:
+                    aBookingDateTime = datetime.strptime(f"{aDate} {aTime}", "%Y-%m-%d %H:%M")
+                    if not(aBookingDateTime >= datetime.now()):
+                        messagebox.showerror("Error", "Booking date and time must be in the future.")
+                        aConn.close()
+                        return
+                except ValueError:
+                    messagebox.showerror("Error", "Invalid date or time.")
+                    aConn.close()
+                    return
 
                 if aDriverId:
                     if self.check_booking_overlap(aDriverId, aDate, aTime, aBookingId):
