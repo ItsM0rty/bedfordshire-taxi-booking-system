@@ -209,7 +209,7 @@ class CustomerDashboardMixin:
 
         try:
             aBookingDateTime = datetime.strptime(f"{aDate} {aTime}", "%Y-%m-%d %H:%M")
-            if aBookingDateTime <= datetime.now():
+            if aBookingDateTime < datetime.now():
                 messagebox.showerror("Error", "Booking date and time must be in the future.")
                 return
         except ValueError:
