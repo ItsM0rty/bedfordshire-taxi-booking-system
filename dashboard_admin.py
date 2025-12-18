@@ -2,6 +2,8 @@ import customtkinter as CTk
 from tkinter import messagebox
 import sqlite3
 from datetime import datetime, timedelta
+import os
+from PIL import ImageTk
 
 
 class AdminDashboardMixin:
@@ -357,6 +359,15 @@ class AdminDashboardMixin:
             aDialog.geometry("400x200")
             aDialog.transient(self)
             aDialog.grab_set()
+            
+            try:
+                anIconPath = os.path.join(os.path.dirname(__file__), "assets", "static", "img", "tbs_icon.png")
+                if os.path.exists(anIconPath):
+                    aDialog.wm_iconbitmap()
+                    iconpath = ImageTk.PhotoImage(file=anIconPath)
+                    aDialog.iconphoto(False, iconpath)
+            except Exception as anError:
+                pass
 
             CTk.CTkLabel(
                 aDialog,

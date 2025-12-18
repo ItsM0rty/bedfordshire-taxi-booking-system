@@ -1,6 +1,8 @@
 import customtkinter as CTk
 from tkinter import messagebox
 import sqlite3
+import os
+from PIL import ImageTk
 
 
 class DriverDashboardMixin:
@@ -15,6 +17,15 @@ class DriverDashboardMixin:
         aDialog.geometry("500x300")
         aDialog.transient(self)
         aDialog.grab_set()
+        
+        try:
+            anIconPath = os.path.join(os.path.dirname(__file__), "assets", "static", "img", "tbs_icon.png")
+            if os.path.exists(anIconPath):
+                aDialog.wm_iconbitmap()
+                iconpath = ImageTk.PhotoImage(file=anIconPath)
+                aDialog.iconphoto(False, iconpath)
+        except Exception as anError:
+            pass
 
         CTk.CTkLabel(
             aDialog,

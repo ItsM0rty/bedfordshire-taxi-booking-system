@@ -2,6 +2,8 @@ import customtkinter as CTk
 from tkinter import messagebox
 import sqlite3
 from datetime import datetime
+import os
+from PIL import ImageTk
 
 
 class CustomerDashboardMixin:
@@ -206,6 +208,15 @@ class CustomerDashboardMixin:
             return
 
         try:
+            aBookingDateTime = datetime.strptime(f"{aDate} {aTime}", "%Y-%m-%d %H:%M")
+            if aBookingDateTime <= datetime.now():
+                messagebox.showerror("Error", "Booking date and time must be in the future.")
+                return
+        except ValueError:
+            messagebox.showerror("Error", "Invalid date or time.")
+            return
+
+        try:
             aConn = sqlite3.connect("taxi.db")
             aCur = aConn.cursor()
             aCur.execute(
@@ -355,6 +366,15 @@ class CustomerDashboardMixin:
         aDialog.geometry("500x400")
         aDialog.transient(self)
         aDialog.grab_set()
+        
+        try:
+            anIconPath = os.path.join(os.path.dirname(__file__), "assets", "static", "img", "tbs_icon.png")
+            if os.path.exists(anIconPath):
+                aDialog.wm_iconbitmap()
+                iconpath = ImageTk.PhotoImage(file=anIconPath)
+                aDialog.iconphoto(False, iconpath)
+        except Exception as anError:
+            pass
 
         CTk.CTkLabel(
             aDialog,
